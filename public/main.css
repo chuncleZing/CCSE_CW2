@@ -1,0 +1,376 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: #1a1a1b;
+}
+
+th {
+  text-align: left;
+  padding-bottom: 10px;
+  font-size: 20px;
+  font-family: Geneva, Verdana, sans-serif;
+}
+
+.button {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+
+  text-decoration: none;
+  color: initial;
+}
+
+#cars-list {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0 10%;
+  justify-content: center;
+}
+
+.car {
+  max-width: 300px;
+  box-shadow: 5px 10px 10px 1px rgba(0,0,0,0.4);
+  margin: 16px;
+  background-color: #b8b6b4;
+  transition: box-shadow 0.25s;
+}
+
+.car-image {
+  width: 300px;
+  height: auto;
+}
+
+.car-content {
+  padding: 2px 16px;
+}
+
+.car-buttons {
+  padding: 2px 16px;
+}
+
+.add-to-basket {
+  width: 100px;
+  height: 40px;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.horizontal-margin {
+  margin: 0 0.75em;
+}
+/*
+https://www.quackit.com/html/html_editors/scratchpad/?example=/css/flexbox/tutorial/nested_flex_containers_example_2
+*/
+* {
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif
+}
+
+#main {
+  display: flex;
+  flex: 1;
+  
+}
+#main > article {
+  flex: 1;
+}
+#main > nav,
+#main > aside {
+  flex: 0 0 20vw;
+  background: #1a1a1a;
+}
+#main > nav {
+  order: -1;
+}
+
+header,
+footer {
+  background: #232324;
+  height: 5vh;
+  color: #b8b6b4;
+}
+header,
+footer,
+article,
+nav,
+aside {
+  padding: 1em;
+}
+
+p{
+  color: #b8b6b4;
+  font-family: Geneva, Verdana, sans-serif;
+  padding: 10px;
+}
+h1 {
+  text-align: center;
+  color: #b8b6b4;
+  margin: 0px .5em;
+  font-size: 3.24rem; 
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+}
+
+
+h2 {
+  text-align: center;
+  color: #b8b6b4;
+  font-size: 50px; 
+  font-family: Geneva, Verdana, sans-serif;
+}
+
+h3 {
+  color: #b8b6b4;
+  font-size: 100px; 
+  font-family: Geneva, Verdana, sans-serif;
+}
+
+h4 {
+  font-size: 25px;
+  font-family: Geneva, Verdana, sans-serif;
+  font-weight: bold;
+}
+
+img{
+width: 200px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.navbarImage img{
+    object-fit: fill;
+    height: 40px;
+    width: 40px;
+    float: left;
+    filter: invert(100%);
+    margin-top: 2px;
+}
+
+
+#navbar-top {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #232324;
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: 0 0 10px rgba(0,0,0,.4);
+  transition: top 0.25s;
+  width: 100%;
+  z-index: 99;
+  height: 50px;
+}
+
+/*css for searchbar
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container .searchbox {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 53px;
+  transition: 0.4s linear;
+  overflow: hidden;
+}
+.container .searchbox .searchbox__input {
+  display: block;
+  appearance: none;
+  width: 100%;
+  border: none;
+  outline: none;
+  border-radius: 50px;
+  background-color: #24233A;
+  padding: 15px;
+  color: #24233A;
+  font-size: 20px;
+  cursor: pointer;
+  transition: 0.4s linear;
+}
+.container .searchbox .searchbox__input::placeholder {
+  color: #24233A;
+}
+.container .searchbox .searchbox__icon {
+  position: absolute;
+  right: calc(53px / 2);
+  top: 50%;
+  transform: translate(50%, -50%);
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+.container .searchbox .searchbox__icon path {
+  fill: #00F494;
+  transition: 0.4s linear;
+}
+.container .searchbox:focus-within {
+  max-width: 300px;
+}
+.container .searchbox:focus-within .searchbox__input {
+  background-color: #FFF;
+  padding-right: 50px;
+  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4);
+}
+.container .searchbox:focus-within .searchbox__icon path {
+  fill: #24233A;
+}
+
+/*
+.u-search-button {
+  cursor: pointer;
+  position: relative;
+  flex: 0;
+  background: none;
+  border: 0;
+  padding: 0;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+*/
+
+/* When the screen is less than 600px wide, stack the links and the search field vertically instead of horizontally */
+@media screen and (max-width: 600px) {
+  .navigation a, .navigation input[type=text], navigation .search-container button {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+  .navigation input[type=text] {
+    border: 1px solid #ccc;
+  }
+}
+
+li {
+  float: left;
+}
+li a, .dropbtn {
+  display: inline-block;
+  color: #b8b6b4;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.nav-active {
+  color: #D48166;
+}
+
+.nav-active:after {
+  transform: scaleX(1);
+}
+
+li a:after {
+  display: block;
+  position: relative;
+  content: '';
+  top: 10px;
+  border-bottom: 4px solid #D48166;
+  transform: scaleX(0);
+  transition: transform 200ms ease-in-out;
+}
+
+li a:hover:after {
+  transform: scaleX(1);
+}
+
+li a:hover, .dropdown:hover .dropbtn {
+  color: #D48166;
+}
+
+.navBottom {
+  background-color: #232324;
+  overflow: hidden;
+  bottom: 0;
+  width: 100%;
+}
+.navBottom a {
+  float: right;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+.navBottom a:hover {
+  background-color: #D48166;
+  color: #b8b6b4;
+}
+
+.navBottom a.active {
+  background-color: #D48166;
+  color: #b8b6b4;
+}
+
+.navBottom2 {
+  background-color: #232324;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+.navBottom2 a {
+  float: right;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+.navBottom2 a:hover {
+  background-color: #D48166;
+  color: #b8b6b4;
+}
+
+.navBottom2 a.active {
+  background-color: #D48166;
+  color: #b8b6b4;
+}
+
+.cookiesPolicy {
+  text-align: left;
+  padding-left: 70px;
+  padding-right: 70px;
+  border: 15px solid #D48166;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+}
+.contactUs {
+  text-align: center;
+  padding-left: 70px;
+  padding-right: 70px;
+  border: 15px solid #D48166;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+}
+
+.carView {
+  text-align: left;
+  padding-left: 200px;
+  border: 15px solid #D48166;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+
+}

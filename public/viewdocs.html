@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Documents</title>
+    <link href="main.css" rel="stylesheet" />
+    <link href="browse.css" rel="stylesheet" />
+    <link href="viewdocs.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>View Documents</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Filename</th>
+                <th>Date Uploaded</th>
+                <th>By User</th>
+            </tr>
+        </thead>
+        <tbody id="documentTable">
+        </tbody>
+    </table>
+    <button onclick="window.location.href='browse.html'">Back</button>
+
+    <script src="viewdocs.js"></script>
+        
+<script>
+    // this allows users to view uploaded documents that are associated with their own unique user_id
+    // these documents are retrieved from the SQL server
+    // user should be able to delete documents (save for if I have time)
+
+    window.addEventListener("DOMContentLoaded", async () => {
+    // function is triggered as soon as page loads
+        const tableBody = document.getElementById("documentTable");
+
+        const response = await fetch(`viewdocs.php?page=${1}&cache=${Math.random()}`);
+        // goes to php file to retrieve documents from database
+        if (response.ok) {
+            const documents = await response.json();
+            const tableBody = document.getElementById("documentTable");
+            const numRows = Math.min(documents.length, 25); // show up to 25 rows
+            for (let i = 0; i < numRows; i++) {
+                const document = documents[i];
+                const row = tableBody.insertRow();
+                const filenameCell = row.insertCell();
+                filenameCell.innerText = document.filename;
+                filenameCell.style.color = "blue";
+                filenameCell.style.textDecoration = "underline";
+                filenameCell.style.cursor = "pointer"; // make the cell clickable - and therefore viewable
+                const dateCell = row.insertCell();
+                dateCell.innerText = document.date_uploaded;
+                const emailCell = row.insertCell(); // new cell for email
+                emailCell.innerText = document.email; // set email cell text to email value from response
+                filenameCell.addEventListener("click", () => {
+                    window.open('/uploads/' + document.filename); // open the file in a new tab/window
+                });
+
+            
+                
+                
+            }
+            alert(`Retrieved ${numRows} rows from the database.`);
+        } else {
+            alert("Failed to load documents.");
+        }
+});
+
+
+   
+
+
+
+
+
+
+</script>
+</body>
+</html>
+

@@ -1,0 +1,184 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Car!</title>
+    <link href="main.css" rel="stylesheet" />
+    <link href="browse.css" rel="stylesheet" />
+   
+
+  </head>
+  	
+  <body>
+    <div id="dealer-overlay">
+      <div id="overlay-container">
+        <!-- needs to know the id + details of currently selected car -->
+        <!-- locations of each dealer is stored in an array (js) -->
+        <h2>Find your nearest dealer</h2>
+        <form id="postcode-form">
+          <label for="postcode">Enter your postcode:</label>
+          <input type="text" id="postcode" name="postcode" placeholder="e.g. AB1 2CD" required>
+          <button type="submit" onclick="nearestDealer()">Find dealer</button>
+          <p>Or use your current location:</p>
+          <button type="button" onclick="getCurrentLocation()">Use current location</button>
+          <input type="text" id="latitude" name="latitude" readonly>
+          <input type="text" id="longitude" name="longitude" readonly>
+          <label for="closest-dealership">Closest Dealership:</label>
+          <input type="text" id="closest-dealership" name="closest-dealership" readonly>
+          <label for="closest-dealership-postcode">Postcode:</label>
+          <input type="text" id="closest-dealership-postcode" name="closest-dealership-postcode" readonly>
+          <label for="closest-dealership-hours">Hours:</label>
+          <input type="text" id="closest-dealership-hours" name="closest-dealership-hours" readonly>
+          <br><br>
+        </form>
+        <p id="coordinates"></p>
+        <button id="close-dealer-overlay" onclick="closeOverlay()">Close</button>
+      </div>
+    </div>
+
+    
+
+
+  <div class="navigation">
+  <ul id="navbar-top">
+  <div class = "navbarImage">
+  <img src="car6.jpg">
+  </div>
+  <li style= "color:white;padding: 14px 16px;font-weight:1000">Global Finance Autos</li>
+  <li><a href="browse.html">Available Cars</a></li>
+  <li><a href="viewdocs.html">View Personal Documents</a></li>
+  <li><a href="adminLogin.html">Admin Login</a></li>
+  <li style="float:right"><a href="login.html" onclick="return confirm('Are you sure you want to log out?');">Log Out</a></li>
+  
+  
+
+  </div>
+  <div style="padding:20px;margin-top:30px;height:15px;">
+  </div>
+  <main>
+<h1> Cars For Sale: </h1>
+<p></p>
+      <article id="cars-list">
+        <div id="car-l" class="car-bg">
+            <img class="car-image"/>
+        </div>
+        <div id="car-m">
+            <div class="car-arrow"  onclick="switchcars(-1)">
+                <img id="arrow-l" src="arrow.png"/>
+            </div>
+            <div id="car-m-img">
+                <img class="car-image"/>
+            </div>
+            <div class="car-arrow" onclick="switchcars(1)">
+                <img id="arrow-r" src="arrow.png"/>
+            </div>
+        </div>
+        <div id="car-r" class="car-bg">
+            <img class="car-image"/>
+        </div>
+      </article>
+    </main>
+
+    <div id="car-details">
+      <h2 style="float: left;"></h2>
+      <img style="float: right;" id="btn-expand-desc" onclick="showDescription()" src="arrow.png"/>
+      <a class="button" style="float: left;" onclick="showOverlay()">Find Dealers</a>
+      <a href="finance.html" class="button" style="float: left; margin-left: 10px;" onclick="financeCar()">Finance Car</a>
+      <p style="clear: both;"></p>
+      <br>
+      <p id="car-model"><strong>Model: </strong></p>
+      <p id="car-manufacturer"><strong>Manufacturer: </strong></p>
+      <p id="car-condition"><strong>Condition: </strong></p>
+      <p id="car-year"><strong>Year: </strong></p>
+      <p id="car-price"><strong>Price: </strong></p>
+      <p id="car-description"><strong>Description: </strong></p>
+      
+      
+    </div>
+    
+
+    <script src="browse.js?v=1"></script>
+    
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const carId = parseInt(urlParams.get("id"));
+
+      initialise();
+
+      async function initialise() {
+          if (carId || carId === 0) {
+          currIndex = carId;
+
+            if (carId === 0) {
+              changeImgs(0);
+            }
+            else if (carId === cars.length - 1) {
+              changeImgs(2);
+            }
+            else {
+              changeImgs(-1);
+            }
+
+            makeDescription();   // The initial update to the description
+
+            await sleepMS(400);
+
+            showDescription();
+        }
+        else {
+          changeImgs(0);   // Initialises the first image 
+          makeDescription();   // Initial Description update
+        }
+      }
+    
+      function showOverlay() {
+        document.getElementById("dealer-overlay").style.display = "block"; // Show overlay for find dealers
+        
+        // note: the finance button will take the user to a separate page instead of a popup like this
+      }
+
+      function closeOverlay() {
+        document.getElementById("dealer-overlay").style.display = "none"; // Hide overlay
+      }
+      function nearestDealer() {
+        event.preventDefault();
+        // this will be where the users postcode is submitted, and the nearest dealer calculated
+        // postcode part is not currently working (problems with API)
+        const postcodeInput = document.getElementById("postcode").value;
+        // this gets the value of the postcode the user submitted
+        // we will put this into an API and get the lat + long
+        // Create an array with all the dealer postcodes + lat + long (did not actually end up using this approach)
+        // Then the nearest one will be displayed on screen
+        const coordinates = getLatLongFromPostcode(postcodeInput);
+
+        const coordinatesElement = document.getElementById("coordinates");
+        coordinatesElement.textContent = `Latitude: ${coordinates.latitude}, Longitude: ${coordinates.longitude}`;
+      }
+
+
+      function financeCar() {
+       //this function will be used to load up the finance module
+       // will get all of the details of the selected car, such as price
+       // will calculate the monthly price of the selected car
+        
+        const idToPass = cars[currIndex].id; // the id of the current car
+        
+        localStorage.setItem('idToPass', idToPass); // save idToPass to localStorage
+        const car = cars.find((car) => car.id === carId);
+        if (!car) return;
+
+        // Get the basket from local storage, or just an empty array if it doesn't exist
+        const basket = JSON.parse(localStorage.getItem("basket") ?? "[]");
+
+        basket.push(car);
+        localStorage.setItem("basket", JSON.stringify(basket));
+
+        // basket stuff is redundant from previous attempt at getting this to work (but don't want to remove because everything is working now haha)
+
+        document.getElementById("dealer-overlay").style.display = "none"; // Hide overlay
+      }
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,39 @@
+th, td {
+    font-family: "Roboto", sans-serif;
+    color: #b8b6b4;
+}
+
+th {
+    font-size: 26pt;
+    font-weight: 300;
+}
+
+td {
+    font-size: 20pt;
+}
+
+#price-label {
+    text-align: right; 
+    color: #b8b6b4;
+    font-size: 20pt;
+}
+
+.button {
+    background-color: #1a1a1b;
+    color: #D48166;
+    padding: 15px 32px;
+    border-radius: 12px;
+    border: 2px solid #D48166;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 4px auto 0 16px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: #D48166;
+    color: white;
+  }
