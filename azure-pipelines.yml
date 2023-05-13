@@ -12,10 +12,14 @@ pool:
 steps:
 - checkout: self
   displayName: 'Checkout Code'
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: '14.x'
+  displayName: 'Install Node.js'
+
 
 - script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    npm install -g firebase-tools
+    firebase deploy --only hosting --token $(FIREBASE_TOKEN) --non-interactive --project CCSE-2152233
+  displayName: 'Deploy to Firebase'
